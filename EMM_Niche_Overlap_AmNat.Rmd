@@ -5,10 +5,18 @@ date: "8/10/2020"
 output: html_document
 ---
 
+###This analysis uses the EcoSimR shell found at 
+http://www.uvm.edu/~ngotelli/EcoSim/EcoSim.html
+
+###First, I use the existing dataframes Bite_data_no_fruit and Bite_data_fruit to calculate estimated marginal means for each major resource category in each month. Most of the lines below are simply subsetting by each month and running GLMMS of each resource category in each month to get EMMs. I inputted each month's EMMs into their own Excel sheets, uploaded each of those in turn to EcoSimR, and recorded the observed Pianka index in the csv titled "Pianka_index_emm.csv" read into this script at line 668. It is this file that is read in and analyzed using Welch's t-test. 
+
 ```{r}
 
-june <- final_df_transformed[final_df_transformed$Month == 6,]
-june_con <- df_focal_cat_final[df_focal_cat_final$Month == 6,]
+df_bite_no_fruit <- read.csv("Bite_Data_no_fruit.csv")
+df_bite_fruit <- read.csv("Bite_Data_fruit.csv")
+
+june <- df_bite_no_fruit[df_bite_no_fruit$Month == 6,]
+june_con <- df_bite_fruit[df_bite_fruit$Month == 6,]
 
 june_efi <- glmer(EFI ~  
                                 Phenotype +
@@ -88,8 +96,8 @@ emmeans(june_con_both, pairwise ~ Phenotype, type = "response", adjust = "tukey"
 ```
 
 ```{r}
-july <- final_df_transformed[final_df_transformed$Month == 7,]
-july_con <- df_focal_cat_final[df_focal_cat_final$Month == 7,]
+july <- df_bite_no_fruit[df_bite_no_fruit$Month == 7,]
+july_con <- df_bite_fruit[df_bite_fruit$Month == 7,]
 
 july_efi <- glmer(EFI ~  
                                 Phenotype +
@@ -199,8 +207,8 @@ emmeans(july_cry, pairwise ~ Phenotype, type = "response", adjust = "tukey")
 ```
 
 ```{r}
-sep <- final_df_transformed[final_df_transformed$Month == 9,]
-sep_con <- df_focal_cat_final[df_focal_cat_final$Month == 9,]
+sep <- df_bite_no_fruit[df_bite_no_fruit$Month == 9,]
+sep_con <- df_bite_fruit[df_bite_fruit$Month == 9,]
 
 sep_efi <- glmer(EFI ~  
                                 Phenotype +
@@ -307,8 +315,8 @@ emmeans(sep_cry, pairwise ~ Phenotype, type = "response", adjust = "tukey")
 ```
 
 ```{r}
-aug <- final_df_transformed[final_df_transformed$Month == 8,]
-aug_con <- df_focal_cat_final[df_focal_cat_final$Month == 8,]
+aug <- df_bite_no_fruit[df_bite_no_fruit$Month == 8,]
+aug_con <- df_bite_fruit[df_bite_fruit$Month == 8,]
 
 aug_efi <- glmer(EFI ~  
                                 Phenotype +
@@ -415,8 +423,8 @@ emmeans(aug_cry, pairwise ~ Phenotype, type = "response", adjust = "tukey")
 ```
 
 ```{r}
-oct <- final_df_transformed[final_df_transformed$Month == 10,]
-oct_con <- df_focal_cat_final[df_focal_cat_final$Month == 10,]
+oct <- df_bite_no_fruit[df_bite_no_fruit$Month == 10,]
+oct_con <- df_bite_fruit[df_bite_fruit$Month == 10,]
 
 oct_efi <- glmer(EFI ~  
                                 Phenotype +
@@ -538,8 +546,8 @@ emmeans(oct_dark, pairwise ~ Phenotype, type = "response", adjust = "tukey")
 ```
 
 ```{r}
-nov <- final_df_transformed[final_df_transformed$Month == 11,]
-nov_con <- df_focal_cat_final[df_focal_cat_final$Month == 11,]
+nov <- df_bite_no_fruit[df_bite_no_fruit$Month == 11,]
+nov_con <- df_bite_fruit[df_bite_fruit$Month == 11,]
 
 nov_efi <- glmer(EFI ~  
                                 Phenotype +
