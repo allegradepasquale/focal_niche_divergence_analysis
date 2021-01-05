@@ -1,0 +1,150 @@
+---
+title: "RMTs_AmNat"
+author: "Allegra DePasquale"
+date: "1/4/2021"
+output: html_document
+---
+
+###FOOD COMPOSITION RMT
+```{r}
+
+df_food_rmt_no_ndf <- read.csv("food_RMT.csv")
+df_food_rmt_no_ndf <- df_food_rmt_no_ndf %>% 
+           rename(
+           Taxon = ï..Taxon)
+          
+food_rmt_no_ndf <- ggplot(df_food_rmt_no_ndf, aes(y = CFE., x = WSCE., color = Food.Type, shape = Food.Type)) + 
+    geom_point() +
+  xlim(0, 100) + ylim (0,100) +
+  geom_abline(intercept = 100, slope = -1, linetype = 2) +
+    scale_color_viridis(discrete=TRUE) +
+  ggtitle("Nutritional composition of foods") +
+    xlab("Water Soluble Carbohydrate %") + ylab("Crude Fat %") +
+     theme_classic() +
+     theme(plot.title = element_text(size = 12, hjust = 0.5)) +
+     theme(axis.title.x= element_text(size = 12, color = "black")) +
+        theme(legend.position = "right")
+
+
+```
+
+
+
+
+###Intake RMTs
+```{r}
+
+###Low food abundance RMT
+
+df_low <-  df_nutrition[df_nutrition$FruitBiomassCategory == "Low",]
+
+df_ind_mean_low <- df_low %>%
+              group_by(Animal) %>%
+              summarise(
+                        Mean_CP_intake = mean(CP_intake),
+                        Mean_CF_intake = mean(CF_intake),
+                        Mean_WSC_intake = mean(WSC_intake),
+                        Mean_NDF_intake = mean(NDF_intake),
+                        Mean_Dry_Mass_intake = mean(DryMassTotal))
+
+
+df_ind_mean_low <- df_phenotype %>% left_join(., df_ind_mean_low, by = c( 
+                                                            "Animal" = "Animal")) 
+
+df_ind_mean_low <- df_ind_mean_low %>% mutate(Mean_PE_Intake = Mean_CP_intake * 4)  
+df_ind_mean_low <- df_ind_mean_low %>% mutate(Mean_NDF_Energy_Intake = Mean_NDF_intake * 4)
+df_ind_mean_low <- df_ind_mean_low %>% mutate(Mean_CF_Energy_Intake = Mean_CF_intake * 9)
+df_ind_mean_low <- df_ind_mean_low %>% mutate(Mean_WSC_Energy_Intake = Mean_WSC_intake * 4)
+
+
+
+#Creating columns for usage in RMTs
+df_rmt_ind_mean_low <- df_ind_mean_low %>% mutate(ME_Total_Mean = Mean_PE_Intake + Mean_CF_Energy_Intake + Mean_WSC_Energy_Intake)
+
+
+
+
+df_rmt_ind_mean_low <- df_rmt_ind_mean_low %>% mutate(Mean_WSC_Percent = (Mean_WSC_Energy_Intake/ME_Total_Mean)*100)
+
+df_rmt_ind_mean_low <- df_rmt_ind_mean_low %>% mutate(Mean_CF_Percent = (Mean_CF_Energy_Intake/ME_Total_Mean)*100)
+
+
+df_rmt_ind_mean_low <- df_rmt_ind_mean_low %>% mutate(Mean_PE_Percent = (Mean_PE_Intake/ME_Total_Mean)*100)
+
+
+
+
+#Plotting RMTs
+
+mean_ind_intake_rmt_low <- ggplot(df_rmt_ind_mean_low, aes(y = Mean_CF_Percent, x = Mean_WSC_Percent, color = Phenotype)) + 
+    geom_point() +
+    scale_color_viridis(discrete=TRUE) +
+  ggtitle("Mean nutritional intake: low fruit abundance") +
+  xlim(0, 100) + ylim (0,100) +
+  geom_abline(intercept = 100, slope = -1, linetype = 2) +
+    xlab("Water soluble carbohydrates %") + ylab("Crude fat %") +
+     theme_classic() +
+     theme(plot.title = element_text(size = 12, hjust = 0.5)) +
+     theme(axis.title.x= element_text(size = 12, color = "black")) +
+        theme(legend.position = "none")
+
+ggsave(plot = mean_ind_intake_rmt_low, file = "Mean_Ind_Intake_RMT_low.jpg", width = 4, height = 4, units = "in")
+
+```
+
+```{r}
+
+#High fruit abundance RMT 
+
+df_high <-  df_nutrition[df_nutrition$FruitBiomassCategory == "High",]
+
+df_ind_mean_high <- df_high %>%
+              group_by(Animal) %>%
+              summarise(
+                        Mean_CP_intake = mean(CP_intake),
+                        Mean_CF_intake = mean(CF_intake),
+                        Mean_WSC_intake = mean(WSC_intake),
+                        Mean_NDF_intake = mean(NDF_intake),
+                        Mean_Dry_Mass_intake = mean(DryMassTotal))
+
+
+df_ind_mean_high <- df_phenotype %>% left_join(., df_ind_mean_high, by = c( 
+                                                            "Animal" = "Animal")) 
+
+df_ind_mean_high <- df_ind_mean_high %>% mutate(Mean_PE_Intake = Mean_CP_intake * 4)  
+df_ind_mean_high <- df_ind_mean_high %>% mutate(Mean_NDF_Energy_Intake = Mean_NDF_intake * 4)
+df_ind_mean_high <- df_ind_mean_high %>% mutate(Mean_CF_Energy_Intake = Mean_CF_intake * 9)
+df_ind_mean_high <- df_ind_mean_high %>% mutate(Mean_WSC_Energy_Intake = Mean_WSC_intake * 4)
+
+
+
+#Creating columns for usage in RMTs
+df_rmt_ind_mean_high <- df_ind_mean_high %>% mutate(ME_Total_Mean = Mean_PE_Intake + Mean_CF_Energy_Intake + Mean_WSC_Energy_Intake)
+
+
+df_rmt_ind_mean_high <- df_rmt_ind_mean_high %>% mutate(Mean_WSC_Percent = (Mean_WSC_Energy_Intake/ME_Total_Mean)*100)
+
+df_rmt_ind_mean_high <- df_rmt_ind_mean_high %>% mutate(Mean_CF_Percent = (Mean_CF_Energy_Intake/ME_Total_Mean)*100)
+
+df_rmt_ind_mean_high <- df_rmt_ind_mean_high %>% mutate(Mean_PE_Percent = (Mean_PE_Intake/ME_Total_Mean)*100)
+
+
+#Plotting RMT
+
+mean_ind_intake_rmt_high <- ggplot(df_rmt_ind_mean_high, aes(y = Mean_CF_Percent, x = Mean_WSC_Percent, color = Phenotype)) + 
+    geom_point() +
+    scale_color_viridis(discrete=TRUE) +
+  ggtitle("Mean nutritional intake: high fruit abundance") +
+  xlim(0, 100) + ylim (0,100) +
+  geom_abline(intercept = 100, slope = -1, linetype = 2) +
+    xlab("Water soluble carbohydrates %") + ylab("Crude fat %") +
+     theme_classic() +
+     theme(plot.title = element_text(size = 12, hjust = 0.5)) +
+     theme(axis.title.x= element_text(size = 12, color = "black")) +
+        theme(legend.position = "none")
+
+ggsave(plot = mean_ind_intake_rmt_high, file = "Mean_Ind_Intake_RMT_high.jpg", width = 4, height = 4, units = "in")
+
+
+```
+
