@@ -5,10 +5,17 @@ date: "1/4/2021"
 output: html_document
 ---
 
+
+df_bite_no_fruit <- read.csv("Bite_Data_no_fruit.csv")
+df_bite_fruit <- read.csv("Bite_Data_fruit.csv")
+df_nutrition <- read.csv("nutritional_intake_data.csv")
+
 ###FOOD COMPOSITION RMT
 ```{r}
 
 df_food_rmt_no_ndf <- read.csv("food_RMT.csv")
+df_nutrition <- read.csv("nutritional_intake_data.csv")
+
 df_food_rmt_no_ndf <- df_food_rmt_no_ndf %>% 
            rename(
            Taxon = ï..Taxon)
