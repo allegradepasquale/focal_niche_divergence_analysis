@@ -1,0 +1,682 @@
+---
+title: "EMM_Niche_Overlap"
+author: "Allegra DePasquale"
+date: "8/10/2020"
+output: html_document
+---
+
+```{r}
+
+june <- final_df_transformed[final_df_transformed$Month == 6,]
+june_con <- df_focal_cat_final[df_focal_cat_final$Month == 6,]
+
+june_efi <- glmer(EFI ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = june,
+                              family = poisson(link = "log")) 
+
+emmeans(june_efi, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+june_fin <- glmer(FIN ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = june,
+                              family = poisson(link = "log")) 
+
+emmeans(june_fin, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+june_eff <- glmer(EFF ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = june,
+                              family = poisson(link = "log")) 
+
+emmeans(june_eff, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+june_ffl <- glmer(FFL ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = june,
+                              family = poisson(link = "log")) 
+
+emmeans(june_ffl, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+june_fot <- glmer(FOT ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = june,
+                              family = poisson(link = "log")) 
+
+emmeans(june_fot, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+june_con_both <- glmer(con_both ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = june_con,
+                              family = poisson(link = "log")) 
+
+emmeans(june_con_both, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+```
+
+```{r}
+july <- final_df_transformed[final_df_transformed$Month == 7,]
+july_con <- df_focal_cat_final[df_focal_cat_final$Month == 7,]
+
+july_efi <- glmer(EFI ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = july,
+                              family = poisson(link = "log")) 
+
+emmeans(july_efi, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+july_fin <- glmer(FIN ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = july,
+                              family = poisson(link = "log")) 
+
+emmeans(july_fin, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+july_eff <- glmer(EFF ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = july,
+                              family = poisson(link = "log")) 
+
+emmeans(july_eff, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+july_ffl <- glmer(FFL ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = july,
+                              family = poisson(link = "log")) 
+
+emmeans(july_ffl, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+july_fot <- glmer(FOT ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = july,
+                              family = poisson(link = "log")) 
+
+emmeans(july_fot, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+july_con_emm <- glmer(con ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = july_con,
+                              family = poisson(link = "log")) 
+
+emmeans(july_con_emm, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+
+july_con_both <- glmer(con_both ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = july_con,
+                              family = poisson(link = "log")) 
+
+emmeans(july_con_both, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+
+july_cry <- glmer(cry ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = july_con,
+                              family = poisson(link = "log")) 
+
+emmeans(july_cry, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+
+```
+
+```{r}
+sep <- final_df_transformed[final_df_transformed$Month == 9,]
+sep_con <- df_focal_cat_final[df_focal_cat_final$Month == 9,]
+
+sep_efi <- glmer(EFI ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = sep,
+                              family = poisson(link = "log")) 
+
+emmeans(sep_efi, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+sep_fin <- glmer(FIN ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = sep,
+                              family = poisson(link = "log")) 
+
+emmeans(sep_fin, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+sep_eff <- glmer(EFF ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = sep,
+                              family = poisson(link = "log")) 
+
+emmeans(sep_eff, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+sep_ffl <- glmer(FFL ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = sep,
+                              family = poisson(link = "log")) 
+
+emmeans(sep_ffl, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+sep_fot <- glmer(FOT ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = sep,
+                              family = poisson(link = "log")) 
+
+emmeans(sep_fot, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+sep_con_emm <- glmer(con ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = sep_con,
+                              family = poisson(link = "log")) 
+
+emmeans(sep_con_emm, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+
+sep_con_both <- glmer(con_both ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = sep_con,
+                              family = poisson(link = "log")) 
+
+emmeans(sep_con_both, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+
+sep_cry <- glmer(cry ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = sep_con,
+                              family = poisson(link = "log")) 
+
+emmeans(sep_cry, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+```
+
+```{r}
+aug <- final_df_transformed[final_df_transformed$Month == 8,]
+aug_con <- df_focal_cat_final[df_focal_cat_final$Month == 8,]
+
+aug_efi <- glmer(EFI ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = aug,
+                              family = poisson(link = "log")) 
+
+emmeans(aug_efi, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+aug_fin <- glmer(FIN ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = aug,
+                              family = poisson(link = "log")) 
+
+emmeans(aug_fin, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+aug_eff <- glmer(EFF ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = aug,
+                              family = poisson(link = "log")) 
+
+emmeans(aug_eff, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+aug_ffl <- glmer(FFL ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = aug,
+                              family = poisson(link = "log")) 
+
+emmeans(aug_ffl, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+aug_fot <- glmer(FOT ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = aug,
+                              family = poisson(link = "log")) 
+
+emmeans(aug_fot, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+aug_con_emm <- glmer(con ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = aug_con,
+                              family = poisson(link = "log")) 
+
+emmeans(aug_con_emm, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+
+aug_con_both <- glmer(con_both ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = aug_con,
+                              family = poisson(link = "log")) 
+
+emmeans(aug_con_both, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+
+aug_cry <- glmer(cry ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = aug_con,
+                              family = poisson(link = "log")) 
+
+emmeans(aug_cry, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+```
+
+```{r}
+oct <- final_df_transformed[final_df_transformed$Month == 10,]
+oct_con <- df_focal_cat_final[df_focal_cat_final$Month == 10,]
+
+oct_efi <- glmer(EFI ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = oct,
+                              family = poisson(link = "log")) 
+
+emmeans(oct_efi, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+oct_fin <- glmer(FIN ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = oct,
+                              family = poisson(link = "log")) 
+
+emmeans(oct_fin, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+oct_eff <- glmer(EFF ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = oct,
+                              family = poisson(link = "log")) 
+
+emmeans(oct_eff, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+oct_ffl <- glmer(FFL ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = oct,
+                              family = poisson(link = "log")) 
+
+emmeans(oct_ffl, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+oct_fot <- glmer(FOT ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = oct,
+                              family = poisson(link = "log")) 
+
+emmeans(oct_fot, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+oct_con_emm <- glmer(con ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = oct_con,
+                              family = poisson(link = "log")) 
+
+emmeans(oct_con_emm, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+
+oct_con_both <- glmer(con_both ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = oct_con,
+                              family = poisson(link = "log")) 
+
+emmeans(oct_con_both, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+
+oct_cry <- glmer(cry ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = oct_con,
+                              family = poisson(link = "log")) 
+
+emmeans(oct_cry, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+oct_dark <- glmer(dark ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = oct_con,
+                              family = poisson(link = "log")) 
+
+emmeans(oct_dark, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+
+```
+
+```{r}
+nov <- final_df_transformed[final_df_transformed$Month == 11,]
+nov_con <- df_focal_cat_final[df_focal_cat_final$Month == 11,]
+
+nov_efi <- glmer(EFI ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = nov,
+                              family = poisson(link = "log")) 
+
+emmeans(nov_efi, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+nov_fin <- glmer(FIN ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = nov,
+                              family = poisson(link = "log")) 
+
+emmeans(nov_fin, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+nov_eff <- glmer(EFF ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = nov,
+                              family = poisson(link = "log")) 
+
+emmeans(nov_eff, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+nov_ffl <- glmer(FFL ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = nov,
+                              family = poisson(link = "log")) 
+
+emmeans(nov_ffl, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+nov_fot <- glmer(FOT ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = nov,
+                              family = poisson(link = "log")) 
+
+emmeans(nov_fot, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+nov_con_emm <- glmer(con ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = nov_con,
+                              family = poisson(link = "log")) 
+
+emmeans(nov_con_emm, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+
+nov_con_both <- glmer(con_both ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = nov_con,
+                              family = poisson(link = "log")) 
+
+emmeans(nov_con_both, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+
+nov_cry <- glmer(cry ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = nov_con,
+                              family = poisson(link = "log")) 
+
+emmeans(nov_cry, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+nov_dark <- glmer(dark ~  
+                                Phenotype +
+                                offset(log(Duration)) + 
+                                (1 | Group/Animal) + 
+                                (1 | Pair) + 
+                                (1 | DominanceCategory)  +                       
+                                (1 | ReproductiveStatus),
+                              data = nov_con,
+                              family = poisson(link = "log")) 
+
+emmeans(nov_dark, pairwise ~ Phenotype, type = "response", adjust = "tukey")
+
+
+
+
+
+pianka_emm <- read.csv("pianka_index_emm.csv")
+
+pianka_plot <- ggplot(pianka_emm, aes(fill= FruitBiomassCategory, y = Pianka_Index, x = FruitBiomassCategory)) + geom_boxplot() + 
+scale_fill_manual(values = wes_palette("Darjeeling2")) +
+xlab(NULL) + ylab("Pianka's index") +
+ggtitle("Pianka's Index in High and Low Fruit Months") +
+theme(plot.title = element_text(hjust = 0.5)) +
+theme_classic() 
+
+
+ggsave(plot = pianka_plot, file = "pianka_plot.jpeg", width = 6, height = 4, units = "in")
+
+
+t.test(pianka_emm$Pianka_Index ~ pianka_emm$FruitBiomassCategory)
+
+
+
+
+```
+
