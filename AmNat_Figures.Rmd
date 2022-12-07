@@ -1,0 +1,68 @@
+---
+title: "AmNat_Figures"
+author: "Allegra DePasquale"
+date: "2022-12-06"
+output: html_document
+---
+
+
+###MAKING FIGURE 1
+```{r}
+###MAKING FIGURE 1
+
+biomass_taxon <- read.csv("FruitBiomassByTaxon.csv")
+
+biomass_taxon <- biomass_taxon %>%
+              rename(Taxon = SpeciesCode)
+biomass_taxon <- biomass_taxon %>% dplyr::select(-X) 
+
+biomass_summed <- biomass_taxon  %>%
+              group_by(ColorCategory, month_of, FruitAbundanceCategory) %>%
+              summarise(MonthlyBiomass = sum(biomass_monthly_kg))
+
+
+biomass_color_plot <- ggplot(biomass_summed, aes(fill = ColorCategory, y = MonthlyBiomass, x = FruitAbundanceCategory)) + geom_boxplot() + 
+scale_fill_manual(values = c("con" = "#E59989", "con_both" = "#f2cd78", "cry" ="#DAF7A6", "dark" = "#B994E0")) +
+labs(y = "Monthly Fruit Biomass (kg/ha)") +
+theme_classic() +
+theme(legend.position = "right")
+
+ggsave(plot = biomass_color_plot, file = "biomass_color_plot.pdf", width = 6, height = 4, units = "in")
+
+```
+
+###MAKING FIGURE S1
+```{r}
+###MAKING FIGURE S1
+
+###PLOTTING PROPORTION OF BITES
+
+
+bite_percent <- read.csv("Bite_Percent_FigS1.csv")
+
+bite_percent_plot <- ggplot(bite_percent, aes(fill=Food, y=Percent, x = Phenotype)) + 
+    geom_bar(alpha = 0.95, position="fill", stat="identity") +
+   scale_fill_manual(values=c("#eaab1e","#f2cd78", "#f7dda5", "#fbeed2", "#704990", "#4c1b74")) +
+   facet_grid(. ~ FruitBiomassCategory) +
+   theme_bw()
+
+ggsave(plot = bite_percent_plot, file = "bite_percent_plot.pdf", width = 6, height = 4, units = "in")
+
+
+
+
+###PLOTTING PROPORTION DRY MATTER INTAKE
+
+nut_percent <- read.csv("DM_Percent_FigS1.csv")
+
+
+nut_percent_plot <- ggplot(nut_percent, aes(fill=Food, y=Percent, x = Phenotype)) + 
+    geom_bar(alpha = 0.95, position="fill", stat="identity") +
+    scale_fill_manual(values=c("#eaab1e","#f2cd78", "#f7dda5", "#fbeed2", "#704990", "#4c1b74")) +
+   facet_grid(. ~ FruitBiomassCategory) +
+   theme_bw()
+
+
+ggsave(plot = nut_percent_plot, file = "nutrition_percent_plot.pdf", width = 6, height = 4, units = "in")
+
+```

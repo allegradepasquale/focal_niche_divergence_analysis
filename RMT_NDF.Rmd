@@ -1,0 +1,159 @@
+---
+title: "RMTs with NDF"
+author: "Allegra DePasquale"
+date: "7/15/2020"
+output: html_document
+---
+``` {r}
+library(lme4)
+library(emmeans)
+library(tidyverse)
+library(ggpubr)
+library(viridis)
+
+
+##FOOD NUTRIITONAL COMPOSITION RMT
+df_food_rmt_ndf <- read.csv("food_RMT_NDF.csv")
+
+df_food_rmt_ndf <- df_food_rmt_ndf %>% 
+           rename(
+           Taxon = ï..Taxon)                       
+
+food_rmt_ndf <- ggplot(df_food_rmt_ndf, aes(y = CP., x = WSCCF., color = Food.Type, shape = Food.Type)) + 
+    geom_point() +
+  xlim(0, 100) + ylim (0,100) +
+  geom_abline(intercept = 100, slope = -1, linetype = 2) +
+    scale_color_viridis(discrete=TRUE) +
+  ggtitle("Nutritional composition of foods") +
+    xlab("Water Soluble Carbohydrate + Fat %") + ylab("Crude Protein %") +
+     theme_classic() +
+     theme(plot.title = element_text(size = 12, hjust = 0.5)) +
+     theme(axis.title.x= element_text(size = 12, color = "black")) +
+        theme(legend.position = "right")
+
+
+``` 
+
+```{r}
+
+###RMT FOR LOW FRUIT ABUNDANT PERIOD
+
+###Reading in file
+df_nutrition <- read.csv("Complete_Nutrition_DF_Jul1_2022.csv")
+
+df_low <-  df_nutrition[df_nutrition$FruitBiomassCategory == "Low",]
+
+df_ind_mean_low <- df_low %>%
+              group_by(Animal, Phenotype) %>%
+              summarise(
+                        Mean_CP_intake = mean(CP_intake),
+                        Mean_CF_intake = mean(CF_intake),
+                        Mean_WSC_intake = mean(WSC_intake),
+                        Mean_NDF_intake = mean(NDF_intake),
+                        Mean_Dry_Mass_intake = mean(DryMassTotal))
+
+
+df_ind_mean_low <- df_ind_mean_low %>% mutate(Mean_PE_Intake = Mean_CP_intake * 4)  
+df_ind_mean_low <- df_ind_mean_low %>% mutate(Mean_NDF_Energy_Intake = Mean_NDF_intake * 4)
+df_ind_mean_low <- df_ind_mean_low %>% mutate(Mean_CF_Energy_Intake = Mean_CF_intake * 9)
+df_ind_mean_low <- df_ind_mean_low %>% mutate(Mean_WSC_Energy_Intake = Mean_WSC_intake * 4)
+
+
+
+#Creating columns for usage in RMTs
+df_rmt_ind_mean_low <- df_ind_mean_low %>% mutate(ME_Total_Mean = Mean_PE_Intake + Mean_CF_Energy_Intake + Mean_WSC_Energy_Intake + Mean_NDF_Energy_Intake)
+
+df_rmt_ind_mean_low <- df_rmt_ind_mean_low %>% mutate(Mean_WSCCF_Percent = ((Mean_WSC_Energy_Intake + Mean_CF_Energy_Intake)/ME_Total_Mean)*100)
+
+
+df_rmt_ind_mean_low <- df_rmt_ind_mean_low %>% mutate(Mean_PE_Percent = (Mean_PE_Intake/ME_Total_Mean)*100)
+
+df_rmt_ind_mean_low <- df_rmt_ind_mean_low %>% mutate(Mean_NDFE_Percent = (Mean_NDF_Energy_Intake/ME_Total_Mean)*100)
+
+
+
+mean_ind_intake_rmt_low <- ggplot(df_rmt_ind_mean_low, aes(y = Mean_PE_Percent, x = Mean_WSCCF_Percent, color = Phenotype)) + 
+    geom_point() +
+    scale_color_viridis(discrete=TRUE) +
+  ggtitle("Mean nutritional intake: low fruit biomass") +
+  xlim(0, 100) + ylim (0,100) +
+  geom_abline(intercept = 100, slope = -1, linetype = 2) +
+    xlab("Water soluble carbohydrates + fat %") + ylab("Crude protein %") +
+     theme_classic() +
+     theme(plot.title = element_text(size = 12, hjust = 0.5)) +
+     theme(axis.title.x= element_text(size = 12, color = "black")) +
+        theme(legend.position = "none")
+
+ggsave(plot = mean_ind_intake_rmt_low, file = "Mean_Ind_Intake_RMT_low.jpg", width = 4, height = 4, units = "in")
+
+```
+
+```{r}
+
+###RMT FOR HIGH FRUIT ABUNDANT PERIOD
+
+
+#Subsetting to high fruit months
+df_high <-  df_nutrition[df_nutrition$FruitBiomassCategory == "High",]
+
+#Summarizing df
+df_ind_mean_high <- df_high %>%
+              group_by(Animal, Phenotype) %>%
+              summarise(
+                        Mean_CP_intake = mean(CP_intake),
+                        Mean_CF_intake = mean(CF_intake),
+                        Mean_WSC_intake = mean(WSC_intake),
+                        Mean_NDF_intake = mean(NDF_intake),
+                        Mean_Dry_Mass_intake = mean(DryMassTotal))
+
+#Joining to phenotype df
+
+df_ind_mean_high <- df_ind_mean_high %>% mutate(Mean_PE_Intake = Mean_CP_intake * 4)  
+df_ind_mean_high <- df_ind_mean_high %>% mutate(Mean_NDF_Energy_Intake = Mean_NDF_intake * 4)
+df_ind_mean_high <- df_ind_mean_high %>% mutate(Mean_CF_Energy_Intake = Mean_CF_intake * 9)
+df_ind_mean_high <- df_ind_mean_high %>% mutate(Mean_WSC_Energy_Intake = Mean_WSC_intake * 4)
+
+
+
+#Creating columns for usage in RMTs
+df_rmt_ind_mean_high <- df_ind_mean_high %>% mutate(ME_Total_Mean = Mean_PE_Intake + Mean_CF_Energy_Intake + Mean_WSC_Energy_Intake + Mean_NDF_Energy_Intake)
+
+df_rmt_ind_mean_high <- df_rmt_ind_mean_high %>% mutate(Mean_WSCCF_Percent = ((Mean_WSC_Energy_Intake + Mean_CF_Energy_Intake)/ME_Total_Mean)*100)
+
+
+df_rmt_ind_mean_high <- df_rmt_ind_mean_high %>% mutate(Mean_PE_Percent = (Mean_PE_Intake/ME_Total_Mean)*100)
+
+df_rmt_ind_mean_high <- df_rmt_ind_mean_high %>% mutate(Mean_NDFE_Percent = (Mean_NDF_Energy_Intake/ME_Total_Mean)*100)
+
+
+
+mean_ind_intake_rmt_high <- ggplot(df_rmt_ind_mean_high, aes(y = Mean_PE_Percent, x = Mean_WSCCF_Percent, color = Phenotype)) + 
+    geom_point() +
+    scale_color_viridis(discrete=TRUE) +
+  ggtitle("Mean nutritional intake: high fruit biomass") +
+  xlim(0, 100) + ylim (0,100) +
+  geom_abline(intercept = 100, slope = -1, linetype = 2) +
+    xlab("Water soluble carbohydrates + fat %") + ylab("Crude protein %") +
+     theme_classic() +
+     theme(plot.title = element_text(size = 12, hjust = 0.5)) +
+     theme(axis.title.x= element_text(size = 12, color = "black")) +
+        theme(legend.position = "none")
+
+ggsave(plot = mean_ind_intake_rmt_high, file = "Mean_Ind_Intake_RMT_high.jpg", width = 4, height = 4, units = "in")
+
+
+```
+
+```{r}
+#Combining RMT food plot with RMT intake plots and saving them
+
+plotscombined_rmt <- ggarrange(mean_ind_intake_rmt_high, mean_ind_intake_rmt_low, nrow=1, common.legend = TRUE, legend="bottom")
+ggsave(plot = plotscombined_rmt, file = "rmt_intake_ndf.jpeg", width = 8, height = 4, units = "in")
+
+final_rmt_plot <- ggarrange(food_rmt_ndf, plotscombined_rmt, nrow=2, common.legend = FALSE)
+
+ggsave(plot = final_rmt_plot, file = "rmt_final.pdf", width = 8, height = 8, units = "in")
+
+```
+
+
