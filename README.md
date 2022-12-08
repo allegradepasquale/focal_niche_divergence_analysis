@@ -25,7 +25,7 @@ The data files necessary for running this script are:
 
 2) "RMT_NDF.Rmd"
 
-This file provides the code for the right angled mixture triangles (RMTs) that contain neutral detergent fiber, typically a feeding deterrent in primates. These RMTs can be found in the manuscript as Supplemental Figure 2.
+This file provides the code for the right angled mixture triangles (RMTs) that contain neutral detergent fiber, typically a feeding deterrent in primates. These RMTs can be found in the manuscript as Supplemental Figure 1.
 
 The data files necessary for running this script are:
 
@@ -57,7 +57,7 @@ The data files necessary for running this script are:
 
 5) "AmNat_Figures.Rmd"
 
-This file generates Figure 1, displaying fruit biomass broken down by color classification, and Figure S1, displaying how bites and dry matter intake are proportioned in high and low fruit months
+This file generates Figure 1, displaying fruit biomass broken down by color classification, and Figure S2, displaying how bites and dry matter intake are proportioned in high and low fruit months
 
 The data files necessary for running this script are:
 
