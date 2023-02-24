@@ -1,6 +1,6 @@
 # focal_niche_divergence_analysis
 
-#The R markdown files provided here allows reproduction of the analysis found in DePasquale et al, in revision at the American Naturalist. 
+#The R markdown files provided here allows reproduction of the analysis found in the manuscript "Does color vision type drive dietary and nutritional niche differentiation in wild capuchins (Cebus imitator)?" submitted to Animal Behaviour. 
 
 I provide 5 files:
 1) "GLMMs_AmNat_Revised.Rmd"
