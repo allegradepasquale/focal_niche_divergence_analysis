@@ -3,7 +3,7 @@
 #The R markdown files provided here allows reproduction of the analysis found in the manuscript "Does color vision type drive dietary and nutritional niche differentiation in wild capuchins (Cebus imitator)?" submitted to Animal Behaviour. 
 
 I provide 5 files:
-1) "GLMMs_An_Beh_Revised.Rmd"
+1) "GLMMs_An_Beh.Rmd"
 2) "RMT_NDF.Rmd"
 3) "RMT_no_NDF.Rmd"
 4) "Niche_Overlap.Rmd"
