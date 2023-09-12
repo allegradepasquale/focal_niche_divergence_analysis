@@ -13,7 +13,7 @@ I detail each in turn below.
 
 1) "GLMMs_An_Beh.Rmd"
 
-This file provides the code for the generalized linear mixed models and estimated marginal means reported in the manuscript. The GLMMs analyze bite count and grams of nutrient intake.
+This file provides the code for the generalized linear mixed models and estimated marginal means reported in the manuscript. The GLMMs analyze bite count and grams of nutrient intake. Code is also provided to create figures 2 & 3.
 
 The data files necessary for running this script are:
 
